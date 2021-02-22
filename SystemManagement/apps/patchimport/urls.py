@@ -13,10 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
-from apps.patchimport.view import views
+from django.urls import path, include
+from rest_framework import routers
+from .views import PatchViewSet
 
-app_name = 'patchimport'
+
+router = routers.DefaultRouter()
+router.register('patches', PatchViewSet)
+
+
 urlpatterns = [
-    path('index/', views.index, name='test'),
+    path('', include(router.urls)),
 ]
