@@ -9,6 +9,7 @@
 <script>
 import leftmenu from '../components/LeftMenu.vue'
 import breadcrumb from '../components/Breadcrumb.vue'
+
 export default {
   name: 'home',
   components: {leftmenu, breadcrumb}

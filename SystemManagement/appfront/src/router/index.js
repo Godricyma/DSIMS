@@ -1,9 +1,12 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import home from '../views/Home.vue'
+import operator from '../views/signapk/Operator.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 // createRouter 创建路由实例
 const router = createRouter({
-  history: createWebHashHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
+  history: createWebHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
   routes: [
     {
       path: '/',
@@ -14,6 +17,12 @@ const router = createRouter({
       name: 'home',
       component: home,
       meta: { title: '首页' }
+    },
+    {
+      path: '/SignApk',
+      name: 'operator',
+      component: operator,
+      meta: { title: 'SignApk' }
     },
     {
       path: '/patchimport',
@@ -32,7 +41,7 @@ const router = createRouter({
         // name: 'mesmanage',
         meta: { title: '更新历史' }
       }]
-    },
+    }
   ]
 })
 
