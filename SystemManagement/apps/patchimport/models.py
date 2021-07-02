@@ -15,8 +15,9 @@ class Patch(models.Model):
     project_name = models.CharField(max_length=20)
     ip = models.GenericIPAddressField()
     add_date = models.DateTimeField(auto_now_add=True)
-    modify_date = models.DateTimeField(auto_now=True)
+    complete_date = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['add_date']

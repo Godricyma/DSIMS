@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <leftmenu class="left-menu"></leftmenu>
-    <breadcrumb></breadcrumb>
+    <breadcrumb
+    :user="username"></breadcrumb>
     <slot></slot>
   </div>
 </template>
@@ -12,7 +13,13 @@ import breadcrumb from '../components/Breadcrumb.vue'
 
 export default {
   name: 'home',
-  components: {leftmenu, breadcrumb}
+  components: {leftmenu, breadcrumb},
+  computed: {
+    username() {
+      let _this = this
+      return _this.$store.getters.username
+    }
+  }
 }
 </script>
 

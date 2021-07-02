@@ -1,16 +1,17 @@
 <template>
-  <div class="test">
-    <div class="breadcrumb">
-      <router-link v-for="(item, index) in breadList"
-      :key="item.meta.title" 
+  <div>
+    <div class="my-breadcrumb">
+      <router-link to="/home">首页</router-link>
+      <router-link v-for="(item) in breadList"
+      :key="item.meta.title"
       :to="{path:item.path}">
+        <span v-if="item.meta.title"> > </span>
         {{item.meta.title}}
-        <span v-if="index < breadList.length-1"> > </span>
       </router-link>
     </div>
-    <div class="user">
+    <div class="my-user">
       <router-link to="#">消息</router-link>
-      <router-link to="#">个人中心</router-link>
+      <router-link to="#">{{ username }}</router-link>
     </div>
   </div>
 </template>
@@ -18,15 +19,22 @@
 <script>
 export default {
   name: 'breadcrumb',
+  props: {
+    user: {
+      type: String,
+      default: '用户'
+    },
+  },
   data() {
     return {
-      breadList: [] // 路由集合
+      breadList: [], // 路由集合
+      username: '',
     };
   },
   watch: {
     $route() {
       this.getBreadcrumb();
-    }
+    },
   },
   methods: {
     isHome(route) {
@@ -34,15 +42,18 @@ export default {
     },
     getBreadcrumb() {
       let matched = this.$route.matched;
-      //如果不是首页 
-      if (!this.isHome(matched[0])) {
-        matched = [{ path: "/home", meta: { title: "首页" } }].concat(matched);
+      if (this.isHome(matched[0])) {
+        matched = []
       }
       this.breadList = matched;
+    },
+    getUsername() {
+      this.username = this.$store.state.username
     }
   },
   created() {
     this.getBreadcrumb();
+    this.username = this.user
   }
 }
 </script>
@@ -53,22 +64,24 @@ div {
   line-height: 55px;
 }
 
-a {
+.my-breadcrumb a {
   text-decoration: none;
   color: rgb(40, 44, 52);
 }
 
-.breadcrumb {
+.my-breadcrumb {
   padding-left: 20px;
   float: left;
 }
 
-.user {
+.my-user {
   float: right;
   padding-right: 20px;
 }
 
-.user a {
+.my-user a {
+  text-decoration: none;
+  color: rgb(40, 44, 52);
   margin-left: 20px;
 }
 </style>
