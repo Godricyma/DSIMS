@@ -5,7 +5,7 @@ from .models import Patch
 
 
 class PatchSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.name')
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Patch

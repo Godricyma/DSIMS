@@ -11,7 +11,16 @@
     </div>
     <div class="my-user">
       <router-link to="#">消息</router-link>
-      <router-link to="#">{{ username }}</router-link>
+      <el-dropdown trigger="click" placement="bottom-start">
+        <span>
+          {{ username }}
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-on:click="logout">登出</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -49,7 +58,11 @@ export default {
     },
     getUsername() {
       this.username = this.$store.state.username
-    }
+    },
+    logout() {
+      this.$store.commit("delToken")
+      this.$router.push("/login")
+    },
   },
   created() {
     this.getBreadcrumb();
@@ -76,12 +89,37 @@ div {
 
 .my-user {
   float: right;
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 .my-user a {
   text-decoration: none;
   color: rgb(40, 44, 52);
   margin-left: 20px;
+  margin-right: 20px;
+}
+
+.el-dropdown {
+  height: 18px;
+  width: 80px;
+  text-align: center;
+}
+
+.el-dropdown-menu {
+  padding: 0px;
+  width: 80px;
+}
+
+.el-dropdown-menu__item {
+  padding: 0px;
+  text-align: center;
+}
+
+.el-scrollbar__wrap {
+  overflow-x: hidden !important; /*关键代码*/
+}
+
+.el-popper__arrow {
+  visibility: hidden;
 }
 </style>

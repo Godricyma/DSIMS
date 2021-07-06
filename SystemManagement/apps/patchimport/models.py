@@ -17,7 +17,7 @@ class Patch(models.Model):
     add_date = models.DateTimeField(auto_now_add=True)
     complete_date = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.IntegerField(default=1)
+    status = models.IntegerField(default=2)
 
     class Meta:
         ordering = ['add_date']

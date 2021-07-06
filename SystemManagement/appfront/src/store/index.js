@@ -20,8 +20,9 @@ export default createStore({
         storage.set("token", info);
     },
     delToken(state) {
-        state.token = ''
-        state.username = ''
+      state.token = ''
+      state.username = ''
+      storage.remove("token")
     }
   }
 })

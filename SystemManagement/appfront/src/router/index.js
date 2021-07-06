@@ -30,7 +30,7 @@ const router = createRouter({
       path: '/patchimport',
       name: 'patchimport',
       component: () => import('../views/patchimport/PatchImport.vue'),
-      redirect: '/patchimport/create',
+      redirect: '/patchimport/history',
       meta: { title: 'PatchImport' },
       children: [{
         path: 'history',
@@ -50,8 +50,12 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
     next();
   } else {
-    store.commit('saveToken', storage.get('token'))
-    store.state.token ? next() : next('/login');
+    if (storage.get('token')) {
+      store.commit('saveToken', storage.get('token'))
+      next()
+    } else {
+      next('/login')
+    }
   }
 });
 
